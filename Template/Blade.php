@@ -2,10 +2,9 @@
 
 namespace Roots\Sage\Template;
 
-use Illuminate\Contracts\Container\Container as ContainerContract;
 use Illuminate\Contracts\View\Factory as FactoryContract;
 use Illuminate\View\Engines\CompilerEngine;
-use Illuminate\View\Engines\EngineInterface;
+use Illuminate\Contracts\View\Engine;
 use Illuminate\View\ViewFinderInterface;
 
 /**
@@ -23,7 +22,7 @@ use Illuminate\View\ViewFinderInterface;
  */
 class Blade
 {
-    /** @var Factory */
+    /** @var FactoryContract */
     protected $env;
 
     public function __construct(FactoryContract $env)
@@ -67,7 +66,7 @@ class Blade
     public function compiledPath($file, $data = [], $mergeData = [])
     {
         $rendered = $this->file($file, $data, $mergeData);
-        /** @var EngineInterface $engine */
+        /** @var Engine $engine */
         $engine = $rendered->getEngine();
 
         if (!($engine instanceof CompilerEngine)) {
